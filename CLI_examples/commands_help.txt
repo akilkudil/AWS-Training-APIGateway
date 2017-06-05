@@ -1,0 +1,59 @@
+1. To create an API
+
+aws apigateway create-rest-api --name "My First API" --description "This is my first API"
+
+
+2. To create a duplicate API from an existing API
+
+aws apigateway create-rest-api --name 'Copy of My First API' --description 'This is a copy of my first API' --clone-from 1234123412
+
+
+3. Get resources attached to the created API
+
+aws apigateway get-resources --rest-api-id "abcdef"
+
+This outputs resource-id for "/" (lets say ghijk)
+
+
+4. create resource
+
+aws apigateway create-resource --rest-api-id "ilw4kmvfk8" --parent-id "zsu6vxt6bc" --path-part "res3"
+
+
+5. Add a method (GET/PUT/.. etc) for existing resource
+
+aws apigateway put-method --rest-api-id "ilw4kmvfk8" --resource-id "8b5uvb" --http-method GET --authorization-type NONE 
+
+
+6. Bind the method (GET/PUT/.. etc) invocation to AWS Lambda
+
+
+ aws apigateway put-integration --rest-api-id "ilw4kmvfk8" --resource-id "8b5uvb" --http-method GET --type AWS --integration-http-method POST --uri "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:814129119746:function:myHello/invocations"
+
+
+[[[[[[[[to get acc id : aws sts get-caller-identity --output text --query 'Account']]]]]]]]]]]]
+
+
+7. Add post method response
+
+aws apigateway put-method-response --rest-api-id "ilw4kmvfk8" --resource-id "8b5uvb"  --http-method GET --status-code 200 --response-models "{\"application/json\": \"Empty\"}"
+
+
+8. Add post integration response
+
+
+aws apigateway put-integration-response --rest-api-id "ilw4kmvfk8" --resource-id "8b5uvb"  --http-method GET --status-code 200 --response-templates "{\"application/json\": \"\"}"
+
+9. deploy API
+
+ aws apigateway create-deployment --rest-api-id "ilw4kmvfk8" --stage-name prod
+
+10. Add permission
+
+ aws lambda add-permission --region us-east-1 --function-name myHello --statement-id apigateway-test-2 --action lambda:InvokeFunction --principal apigateway.amazonaws.com --source-arn "arn:aws:execute-api:us-east-1:814129119746:ilw4kmvfk8/*/GET/res3"
+
+11. remove permission
+
+ aws lambda remove-permission --function-name myHello --statement-id apigateway-test-2
+
+

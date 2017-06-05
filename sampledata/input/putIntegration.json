@@ -1,0 +1,21 @@
+{
+    "restApiId": "", 
+    "resourceId": "", 
+    "httpMethod": "", 
+    "type": "", 
+    "integrationHttpMethod": "", 
+    "uri": "", 
+    "credentials": "", 
+    "requestParameters": {
+        "KeyName": ""
+    }, 
+    "requestTemplates": {
+        "KeyName": ""
+    }, 
+    "passthroughBehavior": "", 
+    "cacheNamespace": "", 
+    "cacheKeyParameters": [
+        ""
+    ], 
+    "contentHandling": ""
+}

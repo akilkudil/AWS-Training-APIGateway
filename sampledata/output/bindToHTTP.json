@@ -1,0 +1,9 @@
+{
+    "httpMethod": "GET", 
+    "passthroughBehavior": "WHEN_NO_MATCH", 
+    "cacheKeyParameters": [], 
+    "type": "HTTP", 
+    "uri": "https://www.amazon.com", 
+    "cacheNamespace": "942b81"
+}
+
